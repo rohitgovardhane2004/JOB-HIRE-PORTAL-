@@ -4,8 +4,8 @@ function dbConnection() {
     const connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
-        password: 'a1b2c3',
-        database: 'super_30_job_portal'
+        password: 'rohit6455',
+        database: 'job_portal'
     })
     connection.connect();
         return connection;

@@ -415,6 +415,46 @@ router.get('/deleteProfilePic', (req, res)=>{
     });
 })
 
+router.post('/uploadProfile', upload.single('prof-pdf'), (req, res) => {
+    // Extract form data
+    // const applicant_id = req.session.appID;
+    const { applicant_id, first_name, last_name, age, mobile_no, email_id, exp, gender, profile_pic_code, skills } = req.body;
+    const file = req.file;
+  
+    // Validate and process form data
+    if (!file) {
+      return res.status(400).send('No file uploaded.');
+    }
+  
+    // Handle the file and form data (e.g., save to database, file system, etc.)
+    console.log('Applicant ID:', applicant_id);
+    console.log('First Name:', first_name);
+    console.log('Last Name:', last_name);
+    console.log('Age:', age);
+    console.log('Mobile No:', mobile_no);
+    console.log('Email ID:', email_id);
+    console.log('Experience:', exp);
+    console.log('Gender:', gender);
+    console.log('Profile Pic Code:', profile_pic_code);
+    console.log('Skills:', skills);
+    console.log('Uploaded File:', file.originalname);
 
+    // Prepare SQL insert query
+    const query = `
+    INSERT INTO job_applicant (applicant_id, first_name, last_name, age, mobile_no, email_id, exp_level, gender, profile_pic_code, skills, cv)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+
+    conn.query(query, [applicant_id, first_name, last_name, age, mobile_no, email_id, exp, gender, profile_pic_code, skills, file.originalname], (err, result)=>{
+        if(err){
+            console.log(err);
+            return;
+        }else{
+            res.redirect("/jobSeeker/login")
+        }
+    });
+
+  });
 
 module.exports = router;

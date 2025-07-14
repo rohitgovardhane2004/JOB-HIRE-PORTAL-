@@ -153,8 +153,9 @@ router.post('/registration', (req, res) => {
                                     }
 
                                     if (result.length > 0) {
-                                        req.session.appID = result[0].applicant_id;
+                                        req.session.applicantId = result[0].applicant_id;
                                         req.session.email = result[0].emailID;
+                                        console.log(req.session.applicantId);
                                         res.render('form/complete_form');
                                     }
                                 });

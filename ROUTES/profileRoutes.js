@@ -14,7 +14,7 @@ router.use(session({
 }));
 
 router.post('/profileComplete', upload.single('prof-image'), (req, res) => {
-    const applicant_id = req.session.appID;
+    const applicant_id = req.session.applicantId;
     const email_id = req.session.email;
     console.log(applicant_id)
     const first_name = req.body.fname;
